@@ -63,6 +63,8 @@ The application requires the following Python packages:
 
 ### Option 1: Run from Terminal (Recommended)
 1. Open a terminal (Command Prompt or PowerShell) as **Administrator**
+   - Right-click the terminal and select "Run as administrator", OR
+   - Run VS Code as administrator
 2. Navigate to the project folder
 3. Execute:
    ```bash
