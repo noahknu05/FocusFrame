@@ -138,7 +138,7 @@ class FocusFrameApp:
         self.all_programs.grid(row=1, column=0, sticky="nsew", padx=5)
 
         ttk.Button(mid, text="Send to block list",
-                   command=lambda: self.add_to_web_blocklist(self.treeview_to_list(self.all_programs))
+                   command=lambda: self.add_to_blocklist([self.all_programs.item(i)["values"][0] for i in self.all_programs.selection()])
                    ).grid(row=2, column=0, pady=(2, 5))
 
         # ------------- Block list on the right ------------- 
@@ -166,9 +166,16 @@ class FocusFrameApp:
                    command=lambda: self.delete_program(self.program_list)
                    ).grid(row=5, column=0, pady=(2, 5))
 
+    def add_to_blocklist(self, programs):
+        for program in programs:
+            if program not in self.treeview_to_list(self.program_list):
+                self.program_list.insert("", "end", values=(program,))
+                self.focus.blocked_apps.append(program)
     def add_to_web_blocklist(self,  site):
         self.focus.web_blocker.add_blocked_site(site)
         self.add_program(self.all_programs, self.program_list)
+  
+
 
 
     # ==================== Tab3 web blocker =================
@@ -487,6 +494,12 @@ class FocusFrameApp:
         if table is self.blocked_websites and self.focus.web_blocker.state == "On":
             for site in selected_values:
                 self.focus.web_blocker.remove_blocked_site(site)
+        
+        if table is self.program_list:
+            # Also remove from focus.blocked_apps
+            for program in selected_values:
+                if program in self.focus.blocked_apps:
+                    self.focus.blocked_apps.remove(program)
                 
         # Save changes to CSV file depending on which table was modified
         if table is self.program_list:
