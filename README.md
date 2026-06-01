@@ -21,7 +21,6 @@ FocusFrame_full/
 ├── FocusFrameApp.spec                # PyInstaller configuration
 ├── build_main_exe.ps1                # PowerShell script to build executable
 ├── requirements.txt                  # Python dependencies
-├── plot.py                           # Plotting utilities (Stats_plotter class)
 ├── app_blocker_f.py                  # Application blocking functionality
 ├── web_blocker_f.py                  # Website blocking functionality
 ├── data_handler_f.py                 # Data storage and management
@@ -114,12 +113,6 @@ Core application logic containing the `Focus` class:
 - Manages data storage (CSV files)
 - Organizes tracking data
 - Provides data access to other components
-
-### plot.py
-`Stats_plotter` class for creating visualizations:
-- Application usage charts
-- Screen time statistics
-- Data visualization within the tkinter UI
 
 ## Dependencies
 
