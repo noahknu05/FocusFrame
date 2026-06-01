@@ -14,63 +14,73 @@ FocusFrame is a Windows desktop application that:
 ## Project Structure
 
 ```
-FocusFrame/
+FocusFrame_full/
 ├── README.md                          # This file
-├── FocusFrameProtoV2/
-│   ├── FocusFrameApp.py              # Main application entry point
-│   ├── focus_main.py                 # Core Focus class with business logic
-│   ├── FocusFrameApp.spec            # PyInstaller configuration
-│   ├── build_main_exe.ps1            # PowerShell script to build executable
-│   ├── requirements.txt               # Python dependencies
-│   ├── plot.py                        # Plotting utilities (Stats_plotter class)
-│   ├── app_blocker_f.py              # Application blocking functionality
-│   ├── web_blocker_f.py              # Website blocking functionality
-│   └── data_handler_f.py             # Data storage and management
+├── FocusFrameApp.py                  # Main application entry point
+├── focus_main.py                     # Core Focus class with business logic
+├── FocusFrameApp.spec                # PyInstaller configuration
+├── build_main_exe.ps1                # PowerShell script to build executable
+├── requirements.txt                  # Python dependencies
+├── plot.py                           # Plotting utilities (Stats_plotter class)
+├── app_blocker_f.py                  # Application blocking functionality
+├── web_blocker_f.py                  # Website blocking functionality
+├── data_handler_f.py                 # Data storage and management
+├── logo.ico                          # Application icon
+└── logo.png                          # Logo image
 ```
 
 ## Installation
 
 ### Prerequisites
-- Python 3.8 or higher
-- Windows OS
-- Administrator privileges (required for app/web blocking features)
+- **Python 3.8 or higher** (Python 3.10+ recommended)
+- **Windows OS** (application is Windows-exclusive)
+- **Administrator privileges** (required for app/web blocking features)
 
-### Setup
+### Setup Steps
 
-1. Clone or extract the project
+1. Clone or extract the FocusFrame project
 2. Navigate to the project directory:
    ```bash
-   cd FocusFrameProtoV2
+   cd FocusFrame_full
    ```
-
-3. Install dependencies:
+3. Install all dependencies from the requirements.txt file:
    ```bash
    pip install -r requirements.txt
    ```
 
-## Usage
+The application requires the following Python packages:
+- pandas >= 1.3.0
+- matplotlib >= 3.5.0
+- pywinctl >= 0.2.0
+- psutil >= 5.9.0
+- pyinstaller >= 5.0.0
 
-### Running the Application
+## Running the Application
 
-```bash
-python FocusFrameApp.py
+**Important:** The app must be run with administrator privileges for the web and app blocker features to function properly. The application needs admin rights to:
+- Kill processes when blocking applications
+- Edit Windows system files for website blocking
+
+### Option 1: Run from Terminal (Recommended)
+1. Open a terminal (Command Prompt or PowerShell) as **Administrator**
+2. Navigate to the project folder
+3. Execute:
+   ```bash
+   python FocusFrameApp.py
+   ```
+
+### Option 2: Build as Standalone Executable
+To create a standalone `.exe` file (no Python installation required for end-users):
+```powershell
+.\build_main_exe.ps1
 ```
+Run this PowerShell script from the project folder to generate the executable using PyInstaller.
 
 This launches the tkinter GUI where you can:
 - View real-time application tracking
 - Access blocking controls for apps and websites
 - View statistics and analytics
 - Configure settings
-
-### Building an Executable
-
-To create a standalone `.exe` file:
-
-```powershell
-.\build_main_exe.ps1
-```
-
-This uses PyInstaller to bundle the application into a single executable file.
 
 ## Key Components
 
@@ -146,8 +156,10 @@ pyinstaller FocusFrameApp.spec
 
 ## Troubleshooting
 
-- **Requires Administrator Privileges**: The app needs admin rights to block applications and modify network settings
-- **Missing Dependencies**: Run `pip install -r requirements.txt` to ensure all packages are installed
+- **Administrator Privileges Required**: The app must be run as administrator for the app blocker and web blocker features to function properly. Without admin rights, you can still view statistics but cannot block applications or websites.
+- **Missing Dependencies**: If you encounter import errors, run `pip install -r requirements.txt` to ensure all required packages are installed.
+- **Python Version**: Ensure you have Python 3.8 or higher installed. Check with `python --version`
+- **Windows Only**: This application only works on Windows. It requires Windows APIs and admin privileges to manage processes and system files.
 - **Build Fails**: Ensure PyInstaller is installed: `pip install pyinstaller`
 
 ## License
